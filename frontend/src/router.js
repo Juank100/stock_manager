@@ -6,6 +6,13 @@ import About from "./views/About.vue";
 
 Vue.use(Router);
 
+
+function loadView(view) {
+    return () =>
+        import ( /* webpackChunkName: "view-[request]" */ `@/views/${view}.vue`);
+}
+
+
 export default new Router({
     routes: [{
         path: "/",
@@ -22,8 +29,12 @@ export default new Router({
             },
             {
                 path: "/Empresas",
-                name: "empresas",
-                component: About
+                name: "Empresas",
+                component: loadView('Empresas/Empresas')
+            }, {
+                path: "/Empresas/Nuevo",
+                name: "Empresas.Nuevo",
+                component: loadView('Empresas/Nuevo')
             }
         ]
     }]

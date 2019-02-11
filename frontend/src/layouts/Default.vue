@@ -34,7 +34,7 @@
           <q-item-separator/>
 
           <q-list-header>Configuration</q-list-header>
-          <q-item to="/about">
+          <q-item to="/Empresas">
             <q-item-side icon="ion-information-outline"/>
             <q-item-main label="Empresas"/>
           </q-item>

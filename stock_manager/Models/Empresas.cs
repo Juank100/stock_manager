@@ -9,6 +9,7 @@ namespace stock_manager.Models
         EMPRESA = 1,
         POS = 2
     }
+    
 
     public class Empresas
     {
@@ -16,7 +17,7 @@ namespace stock_manager.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string Nombre { get; set; }
-        public int Id_Tipo_Documento { get; set; }
+        public TIPO_DOCUMENTOS Tipo_Documento { get; set; }
         public string Documento { get; set; }
         public string Dig_Verificacion { get; set; }
         public string Direccion { get; set; }
@@ -25,9 +26,6 @@ namespace stock_manager.Models
         public ESTADOS Estado { get; set; }
         public int Id_Padre { get; set; }
         public string Logo { get; set; }
-
-        [ForeignKey("Id_Tipo_Documento")]
-        public Tipo_Documento Tipo_Documento { get; set; }
 
         [ForeignKey("Id_Tipo_Persona")]
         public Tipo_Persona Tipo_Persona { get; set; }

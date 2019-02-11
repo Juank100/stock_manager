@@ -18,12 +18,12 @@ namespace stock_manager.Models
         public string Nombre { get; set; }
     }
 
-    public class Tipo_Documento
+    public enum TIPO_DOCUMENTOS
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-        public string Nombre { get; set; }
+        CEDULA,
+        CEDULA_EXTRANJERIA,
+        NIT,
+        PASAPORTE
     }
 
 }
