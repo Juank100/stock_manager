@@ -1,9 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using stock_manager.Helpers;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 
 namespace stock_manager.Models
 {
+    [ParseToJavascript]
     public enum TIPO_EMPRESAS
     {
         EMPRESA = 1,
