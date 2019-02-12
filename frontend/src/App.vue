@@ -8,5 +8,12 @@
 .full-width {
   width: 100%;
 }
+
+.blank {
+  padding: 1em;
+  border: 2px dashed #cccccc;
+  text-align: center;
+  color: #999;
+}
 </style>
 

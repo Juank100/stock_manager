@@ -1,10 +1,24 @@
 <template>
   <div>
-    <q-list separator link>
+    <q-list separator link v-if="empresas.length">
       <q-item v-for="empresa in empresas" :key="empresa.Id">
         <q-item-main :label="empresa.nombre"/>
       </q-item>
     </q-list>
+    <div class="blank q-ma-md" v-else>
+      <p>No existen datos para mostrar.</p>
+    </div>
+
+    <div class="q-my-md q-pa-md"></div>
+    <q-layout-footer class="q-pa-sm" reveal>
+      <q-btn
+        class="full-width"
+        color="primary"
+        icon="ion-add"
+        label="Nueva Empresa"
+        :to="{name:'Empresas.Nuevo'}"
+      />
+    </q-layout-footer>
   </div>
 </template>
 

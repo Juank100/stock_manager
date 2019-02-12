@@ -19,10 +19,11 @@
         />
       </div>
       <div class="col-xs-9 col-md-3">
-        <q-input v-model="model.Documento" float-label="Documento"/>
+        <q-input type="number" v-model="model.Documento" float-label="Documento"/>
       </div>
       <div class="col-xs-3 col-md-1">
         <q-input
+          type="number"
           v-model="model.Dig_Verificacion"
           float-label="Dig"
           :disable="model.Tipo_Documento != 'N'"
@@ -32,16 +33,21 @@
         <q-input v-model="model.Direccion" float-label="Dirección"/>
       </div>
       <div class="col-xs-12 col-md-4">
-        <q-input v-model="model.Telefono" float-label="Telefono"/>
+        <q-input type="tel" v-model="model.Telefono" float-label="Telefono"/>
       </div>
     </div>
     <q-btn class="q-my-md full-width" label="Guardar" color="primary" @click="saveData"/>
+
+    <SearchModal title="Empresas" data-url="/API/Empresas" visible/>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import SearchModal from "./SearchModal";
+
 export default {
+  components: { SearchModal },
   data() {
     return {
       model: {
@@ -61,7 +67,7 @@ export default {
   },
   methods: {
     saveData() {
-      let url = "API/Empresas";
+      let url = "/API/Empresas";
       axios
         .post(url, this.model)
         .then(resp => console.log(resp))
