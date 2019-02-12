@@ -23,10 +23,7 @@ namespace stock_manager.Models
         public string Direccion { get; set; }
         public string Dir_Elec { get; set; }
         public ESTADOS Estado { get; set; }
-        public int Id_Tipo_Persona { get; set; }
-
-        [ForeignKey("Id_Tipo_Persona")]
-        public Tipo_Persona Tipo_Persona { get; set; }
+        public TIPO_PERSONA Tipo_Persona { get; set; }
     }
 
 }

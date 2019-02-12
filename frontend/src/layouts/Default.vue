@@ -4,21 +4,18 @@
       <q-toolbar color="primary" :glossy="$q.theme === 'mat'" :inverted="$q.theme === 'ios'">
         <q-btn
           flat
-          dense
           round
-          @click="leftDrawerOpen = !leftDrawerOpen"
-          aria-label="Menu"
-          icon="ion-menu"
+          dense
+          icon="ion-ios-arrow-back"
+          @click="$router.go(-1)"
+          v-if="showBackButton"
         />
-
-        <q-toolbar-title>Stock Manager</q-toolbar-title>
+        <q-toolbar-title>{{title}}</q-toolbar-title>
+        <q-btn flat dense round @click="leftDrawerOpen = !leftDrawerOpen" icon="ion-menu"/>
       </q-toolbar>
     </q-layout-header>
 
-    <q-layout-drawer
-      v-model="leftDrawerOpen"
-      :content-class="$q.theme === 'mat' ? 'bg-grey-2' : null"
-    >
+    <q-layout-drawer v-model="leftDrawerOpen">
       <q-list no-border link inset-delimiter>
         <q-list no-border link inset-delimiter>
           <q-list-header>POS</q-list-header>
@@ -67,6 +64,14 @@ export default {
   },
   methods: {
     openURL
+  },
+  computed: {
+    title() {
+      return this.$route.meta.title || 'vacio';
+    },
+    showBackButton() {
+      return this.$route.meta.showBackButton || true
+    }
   }
 };
 </script>

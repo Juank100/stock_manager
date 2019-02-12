@@ -9,13 +9,10 @@ namespace stock_manager.Models
         INACTIVO = 2
     }
 
-
-    public class Tipo_Persona
+    public enum TIPO_PERSONA
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-        public string Nombre { get; set; }
+        NATURAL,
+        JURIDICA
     }
 
     public enum TIPO_DOCUMENTOS

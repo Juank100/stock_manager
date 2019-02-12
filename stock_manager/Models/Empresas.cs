@@ -22,13 +22,10 @@ namespace stock_manager.Models
         public string Dig_Verificacion { get; set; }
         public string Direccion { get; set; }
         public string Telefono { get; set; }
-        public int Id_Tipo_Persona { get; set; }
+        public TIPO_PERSONA Tipo_Persona { get; set; }
         public ESTADOS Estado { get; set; }
         public int Id_Padre { get; set; }
         public string Logo { get; set; }
-
-        [ForeignKey("Id_Tipo_Persona")]
-        public Tipo_Persona Tipo_Persona { get; set; }
     }
 
 

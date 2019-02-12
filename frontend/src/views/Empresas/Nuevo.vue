@@ -54,8 +54,8 @@ export default {
         { value: 3, label: "Pasaporte" }
       ],
       TIPO_PERSONAS: [
-        { value: 1, label: "Persona Natural" },
-        { value: 2, label: "Persona Juridica" }
+        { value: 0, label: "Persona Natural" },
+        { value: 1, label: "Persona Juridica" }
       ]
     };
   },

@@ -6,36 +6,46 @@ import About from "./views/About.vue";
 
 Vue.use(Router);
 
-
 function loadView(view) {
-    return () =>
-        import ( /* webpackChunkName: "view-[request]" */ `@/views/${view}.vue`);
+  return () =>
+    import(/* webpackChunkName: "view-[request]" */ `@/views/${view}.vue`);
 }
 
-
 export default new Router({
-    routes: [{
-        path: "/",
-        component: DefaultLayout,
-        children: [{
-                path: "",
-                name: "home",
-                component: Home
-            },
-            {
-                path: "/about",
-                name: "about",
-                component: About
-            },
-            {
-                path: "/Empresas",
-                name: "Empresas",
-                component: loadView('Empresas/Empresas')
-            }, {
-                path: "/Empresas/Nuevo",
-                name: "Empresas.Nuevo",
-                component: loadView('Empresas/Nuevo')
-            }
-        ]
-    }]
+  mode: "history",
+  routes: [
+    {
+      path: "/",
+      component: DefaultLayout,
+      children: [
+        {
+          path: "",
+          name: "home",
+          component: Home,
+          meta: {
+            title: "Inicio",
+            showBackButton: false
+          }
+        },
+        {
+          path: "/about",
+          name: "about",
+          component: About
+        },
+        {
+          path: "/Empresas",
+          name: "Empresas",
+          component: loadView("Empresas/Empresas"),
+          meta: {
+            title: "Empresas"
+          }
+        },
+        {
+          path: "/Empresas/Nuevo",
+          name: "Empresas.Nuevo",
+          component: loadView("Empresas/Nuevo")
+        }
+      ]
+    }
+  ]
 });

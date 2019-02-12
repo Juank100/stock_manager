@@ -1,23 +1,8 @@
 <template>
   <div>
-    <q-btn
-      class="q-my-md q-ml-md"
-      color="primary"
-      size="full-width"
-      label="Nueva Empresa"
-      icon="ion-add"
-      :to="{name: 'Empresas.Nuevo'}"
-    />
     <q-list separator link>
-      <q-list-header>Empresas</q-list-header>
-      <q-item>
-        <q-item-main label="Empresa Prueba"/>
-      </q-item>
-      <q-item>
-        <q-item-main label="Empresa Prueba"/>
-      </q-item>
-      <q-item>
-        <q-item-main label="Empresa Prueba"/>
+      <q-item v-for="empresa in empresas" :key="empresa.Id">
+        <q-item-main :label="empresa.nombre"/>
       </q-item>
     </q-list>
   </div>
@@ -38,7 +23,7 @@ export default {
     loadData() {
       let url = "/API/Empresas";
       axios.get(url).then(resp => {
-        this.data = resp.data;
+        this.empresas = resp.data;
       });
     }
   }
