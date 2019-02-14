@@ -37,8 +37,10 @@
       </div>
     </div>
     <q-btn class="q-my-md full-width" label="Guardar" color="primary" @click="saveData"/>
-
-    <SearchModal title="Empresas" data-url="/API/Empresas" visible/>
+    <pre>
+      {{testId}}
+    </pre>
+    <SearchModal title="Empresas" data-url="/API/Empresas" v-model="testId" visible/>
   </div>
 </template>
 
@@ -50,6 +52,7 @@ export default {
   components: { SearchModal },
   data() {
     return {
+      testId: null,
       model: {
         Tipo_Documento: "N"
       },

@@ -30,7 +30,7 @@ namespace stock_manager.Helpers
 
             foreach (var jsEnum in query)
             {
-                buffer.Append("const ");
+                buffer.Append("window.");
                 buffer.Append(jsEnum.Name);
                 buffer.Append(" = ");
                 buffer.Append(EnumToString(jsEnum));

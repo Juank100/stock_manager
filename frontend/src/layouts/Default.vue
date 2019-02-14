@@ -23,17 +23,17 @@
             <q-item-side icon="ion-home"/>
             <q-item-main label="Inicio"/>
           </q-item>
-          <q-item to="/about">
-            <q-item-side icon="ion-ios-information-circle-outline"/>
-            <q-item-main label="Empresas"/>
-          </q-item>
 
           <q-item-separator/>
 
           <q-list-header>Configuration</q-list-header>
           <q-item to="/Empresas">
-            <q-item-side icon="ion-information-outline"/>
+            <q-item-side icon="ion-business"/>
             <q-item-main label="Empresas"/>
+          </q-item>
+          <q-item to="/Contactos">
+            <q-item-side icon="ion-contacts"/>
+            <q-item-main label="Contactos"/>
           </q-item>
         </q-list>
       </q-list>
@@ -44,7 +44,7 @@
 
       <q-page-sticky position="bottom-right" :offset="[18, 18]">
         <q-fab color="primary" icon="ion-add" direction="up">
-          <q-btn round color="secondary" icon="ion-person-add"/>
+          <q-btn round color="secondary" icon="ion-person-add" :to="{name: 'Contactos.New'}"/>
           <q-btn round color="secondary" icon="ion-paper"/>
         </q-fab>
       </q-page-sticky>
@@ -67,10 +67,10 @@ export default {
   },
   computed: {
     title() {
-      return this.$route.meta.title || 'vacio';
+      return this.$route.meta.title || "vacio";
     },
     showBackButton() {
-      return this.$route.meta.showBackButton || true
+      return this.$route.meta.showBackButton || true;
     }
   }
 };

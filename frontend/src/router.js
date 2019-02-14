@@ -45,7 +45,39 @@ export default new Router({
                 meta: {
                     title: "Nueva Empresa"
                 }
-            }
+            },
+            {
+                path: "/Items",
+                name: "Items",
+                component: loadView("Items/Index"),
+                meta: {
+                    title: "Productos"
+                }
+            },
+            {
+                path: "/Items/New",
+                name: "Items.New",
+                component: loadView("Items/Upsert"),
+                meta: {
+                    title: "Nuevo Productos"
+                }
+            },
+            {
+                path: "/Contactos",
+                name: "Contactos",
+                component: loadView("Contactos/Index"),
+                meta: {
+                    title: "Contactos"
+                }
+            },
+            {
+                path: "/Contactos/New",
+                name: "Contactos.New",
+                component: loadView("Contactos/Upsert"),
+                meta: {
+                    title: "Nuevo Contactos"
+                }
+            },
         ]
     }]
 });

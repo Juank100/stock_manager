@@ -1,8 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using stock_manager.Helpers;
 
 namespace stock_manager.Models
 {
+    [ParseToJavascript]
     public enum TIPO_CONTACTO
     {
         CLIENTE = 1,

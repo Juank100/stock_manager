@@ -16,7 +16,7 @@
 
       <div>
         <q-list separator link>
-          <q-item v-for="n in filteredData" :key="`c-${n.Id}`">
+          <q-item v-for="n in filteredData" :key="`c-${n.Id}`" @click="selectItem(n)">
             <q-item-main :label="n.nombre"/>
           </q-item>
         </q-list>
@@ -29,7 +29,7 @@
 <script>
 import axios from "axios";
 export default {
-  props: ["visible", "title", "dataUrl"],
+  props: ["visible", "title", "dataUrl", "value"],
   data() {
     return {
       search: "",
@@ -44,6 +44,9 @@ export default {
       axios.get(this.dataUrl).then(resp => {
         this.data = resp.data;
       });
+    },
+    selectItem(item) {
+      this.$emit("input", n.Id);
     }
   },
   computed: {
