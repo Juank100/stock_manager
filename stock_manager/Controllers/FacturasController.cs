@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using stock_manager.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -87,17 +88,28 @@ namespace stock_manager.Controllers
 
         // POST: api/Facturas
         [HttpPost]
-        public async Task<IActionResult> PostFacturas([FromBody] Facturas facturas)
+        public async Task<IActionResult> PostFacturas([FromBody] FacturasViewsModels data)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            _context.Facturas.Add(facturas);
+            Facturas factura = data.Factura;
+            factura.Fecha = DateTime.Now;
+
+            foreach (var item in data.Items) {
+                _context.Items_Facturas.Add(new Items_Facturas {
+                    Id_Factura = factura.Id,
+                    Id_Item = item.producto.Id,
+                    Cantidad = item.cantidad
+                });
+            }
+
+            _context.Facturas.Add(factura);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetFacturas", new { id = facturas.Id }, facturas);
+            return CreatedAtAction("GetFacturas", new { id = factura.Id }, factura);
         }
 
         // DELETE: api/Facturas/5
