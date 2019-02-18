@@ -39,6 +39,10 @@
             <q-item-side icon="ion-cube"/>
             <q-item-main label="Productos"/>
           </q-item>
+          <q-item to="/Ventas">
+            <q-item-side icon="ion-paper"/>
+            <q-item-main label="Ventas"/>
+          </q-item>
         </q-list>
       </q-list>
     </q-layout-drawer>

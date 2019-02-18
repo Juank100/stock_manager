@@ -17,8 +17,13 @@ namespace stock_manager.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+        public string Num { get; set; }
         public TIPO_FACTURA Tipo_Factura { get; set; }
         public DateTime Fecha { get; set; }
+        public int Id_Contacto { get; set; }
+
+        [ForeignKey("Id_Contacto")]
+        public Contactos Contacto { get; set; }
     }
 
     public class Items_Facturas

@@ -22,7 +22,7 @@ namespace stock_manager.Controllers
         [HttpGet]
         public IEnumerable<Items> GetItems()
         {
-            return _context.Items;
+            return _context.Items.Include("Medida").Include("Items_Facturas");
         }
 
         // GET: api/Items/5

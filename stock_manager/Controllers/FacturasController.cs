@@ -1,11 +1,9 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using stock_manager.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using stock_manager.Models;
 
 namespace stock_manager.Controllers
 {
@@ -25,6 +23,12 @@ namespace stock_manager.Controllers
         public IEnumerable<Facturas> GetFacturas()
         {
             return _context.Facturas;
+        }
+
+        [HttpGet("Ventas")]
+        public IEnumerable<Facturas> GetFacturasVentas()
+        {
+            return _context.Facturas.Where(f => f.Tipo_Factura == TIPO_FACTURA.VENTA).ToList();
         }
 
         // GET: api/Facturas/5
