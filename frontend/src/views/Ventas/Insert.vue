@@ -93,6 +93,7 @@ export default {
   },
   methods: {
     saveData() {
+      this.model.Id_Contacto = this.contacto.id;
       let data = {
         Factura: this.model,
         Items: this.items
