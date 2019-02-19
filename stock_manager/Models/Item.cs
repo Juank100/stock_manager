@@ -1,4 +1,5 @@
 ﻿using stock_manager.Helpers;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -43,8 +44,38 @@ namespace stock_manager.Models
         public string Descripcion { get; set; }
         public string Imagen { get; set; }
 
-
         [ForeignKey("Id_Medida")]
         public Medidas Medida { get; set; }
+
+        public virtual ICollection<Items_Facturas> Items_Facturas { get; set; }
+
+        [NotMapped]
+        public double Precio
+        {
+            get { return Precio_Venta; }
+        }
+
+
+        [NotMapped]
+        public double Stock
+        {
+            get
+            {
+                double entradas = 0;
+                double salidas = 0;
+                foreach (var f in Items_Facturas)
+                {
+                    if (f.Factura.Tipo_Factura == TIPO_FACTURA.COMPRA)
+                    {
+                        entradas += f.Cantidad;
+                    }
+                    else
+                    {
+                        salidas += f.Cantidad;
+                    }
+                }
+                return entradas - salidas;
+            }
+        }
     }
 }

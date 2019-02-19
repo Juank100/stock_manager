@@ -261,5 +261,6 @@ __pycache__/
 *.pyc
 
 
-
+stock_manager/appsettings.json
 stock_manager/wwwroot/
+stock_manager/Views/Home/Index.cshtml

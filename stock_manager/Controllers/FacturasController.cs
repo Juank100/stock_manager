@@ -1,11 +1,10 @@
-﻿using System;
+﻿﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using stock_manager.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using stock_manager.Models;
 
 namespace stock_manager.Controllers
 {
@@ -25,6 +24,12 @@ namespace stock_manager.Controllers
         public IEnumerable<Facturas> GetFacturas()
         {
             return _context.Facturas;
+        }
+
+        [HttpGet("Ventas")]
+        public IEnumerable<Facturas> GetFacturasVentas()
+        {
+            return _context.Facturas.Where(f => f.Tipo_Factura == TIPO_FACTURA.VENTA).ToList();
         }
 
         // GET: api/Facturas/5
@@ -83,17 +88,27 @@ namespace stock_manager.Controllers
 
         // POST: api/Facturas
         [HttpPost]
-        public async Task<IActionResult> PostFacturas([FromBody] Facturas facturas)
+        public async Task<IActionResult> PostFacturas([FromBody] FacturasViewsModels data)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+            Facturas factura = data.Factura;
+            factura.Fecha = DateTime.Now;
 
-            _context.Facturas.Add(facturas);
+            foreach (var item in data.Items) {
+                _context.Items_Facturas.Add(new Items_Facturas {
+                    Id_Factura = factura.Id,
+                    Id_Item = item.producto.Id,
+                    Cantidad = item.cantidad
+                });
+            }
+
+            _context.Facturas.Add(factura);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetFacturas", new { id = facturas.Id }, facturas);
+            return CreatedAtAction("GetFacturas", new { id = factura.Id }, factura);
         }
 
         // DELETE: api/Facturas/5

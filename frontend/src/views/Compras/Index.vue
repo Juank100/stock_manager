@@ -1,12 +1,8 @@
 <template>
   <div>
-    <q-list separator link v-if="empresas.length">
-      <q-item
-        v-for="empresa in empresas"
-        :key="empresa.Id"
-        :to="{name:'Empresas.Detail', params:{Id: empresa.id}}"
-      >
-        <q-item-main :label="empresa.nombre"/>
+    <q-list separator link v-if="compras.length">
+      <q-item v-for="c in compras" :key="c.Id">
+        <q-item-main :label="c.Id"/>
       </q-item>
     </q-list>
     <div class="blank q-ma-md" v-else>
@@ -19,8 +15,8 @@
         class="full-width"
         color="primary"
         icon="ion-add"
-        label="Nueva Empresa"
-        :to="{name:'Empresas.Nuevo'}"
+        label="Nuevo"
+        :to="{name:'Compras.New'}"
       />
     </q-layout-footer>
   </div>
@@ -31,7 +27,7 @@ import axios from "axios";
 export default {
   data() {
     return {
-      empresas: []
+      compras: []
     };
   },
   created() {
@@ -39,9 +35,9 @@ export default {
   },
   methods: {
     loadData() {
-      let url = "/API/Empresas";
+      let url = "/API/Facturas/Compras";
       axios.get(url).then(resp => {
-        this.empresas = resp.data;
+        this.compras = resp.data;
       });
     }
   }

@@ -47,6 +47,14 @@ export default new Router({
                 }
             },
             {
+                path: "/Empresas/:Id",
+                name: "Empresas.Detail",
+                component: loadView("Empresas/Detail"),
+                meta: {
+                    title: "Detalle Empresa"
+                }
+            },
+            {
                 path: "/Items",
                 name: "Items",
                 component: loadView("Items/Index"),
@@ -76,6 +84,22 @@ export default new Router({
                 component: loadView("Contactos/Upsert"),
                 meta: {
                     title: "Nuevo Contactos"
+                }
+            },
+            {
+                path: "/Ventas",
+                name: "Ventas",
+                component: loadView("Ventas/Index"),
+                meta: {
+                    title: "Ventas"
+                }
+            },
+            {
+                path: "/Ventas/New",
+                name: "Ventas.New",
+                component: loadView("Ventas/Insert"),
+                meta: {
+                    title: "Nueva Venta"
                 }
             },
         ]

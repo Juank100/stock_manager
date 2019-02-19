@@ -1,22 +1,28 @@
 <template>
   <q-modal
+    ref="searchModal"
     class="no-padding"
     v-model="visible"
     :content-css="{minWidth: '80vw', minHeight: '80vh'}"
   >
     <q-modal-layout>
-      <q-toolbar slot="header">
+      <q-toolbar slot="header" inverted>
         <q-btn flat round dense @click="visible = false" icon="ion-arrow-back"/>
         <q-toolbar-title>{{title}}</q-toolbar-title>
       </q-toolbar>
 
-      <q-toolbar slot="footer">
+      <!-- <q-toolbar slot="header" inverted>
         <q-search class="full-width" inverted v-model="search" color="none"/>
-      </q-toolbar>
+      </q-toolbar> -->
 
       <div>
-        <q-list separator link>
-          <q-item v-for="n in filteredData" :key="`c-${n.Id}`" @click="selectItem(n)">
+        <q-list separator highlight>
+          <q-item
+            v-for="n in filteredData"
+            :key="`c-${n.id}`"
+            @click.native="selectItem(n)"
+            v-ripple.mat
+          >
             <q-item-main :label="n.nombre"/>
           </q-item>
         </q-list>
@@ -46,7 +52,11 @@ export default {
       });
     },
     selectItem(item) {
-      this.$emit("input", n.Id);
+      this.$emit("input", item);
+      this.$refs.searchModal.hide();
+    },
+    show() {
+      this.$refs.searchModal.show();
     }
   },
   computed: {
