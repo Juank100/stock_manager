@@ -1,10 +1,24 @@
 <template>
   <div>
-    <q-list separator link v-if="compras.length">
+    <!-- <q-list separator link v-if="compras.length">
       <q-item v-for="c in compras" :key="c.Id">
-        <q-item-main :label="c.Id"/>
+        <q-item-main :label="c.contacto.nombre"/>
       </q-item>
-    </q-list>
+    </q-list>-->
+    <table v-if="compras.length">
+      <thead>
+        <th>Proveedor</th>
+        <th>Fecha</th>
+        <th>Items</th>
+        <th>Total</th>
+      </thead>
+      <tr v-for="c in compras" :key="c.id">
+        <td>{{c.contacto.nombre}}</td>
+        <td>{{c.fecha}}</td>
+        <!-- <td>{{c.items_Factura.length}}</td> -->
+      </tr>
+    </table>
+
     <div class="blank q-ma-md" v-else>
       <p>No existen datos para mostrar.</p>
     </div>

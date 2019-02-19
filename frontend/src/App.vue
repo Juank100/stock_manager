@@ -15,5 +15,20 @@
   text-align: center;
   color: #999;
 }
+
+
+table {
+  width: 100%;
+  text-align: left;
+}
+
+.center-v {
+  display: flex;
+  align-items: center;
+}
+
+.back-white {
+  background-color: white;
+}
 </style>
 

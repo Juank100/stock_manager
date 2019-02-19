@@ -28,6 +28,18 @@ namespace stock_manager.Models
 
         public DbSet<Auditoria> Auditoria { get; set; }
 
-
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Items_Facturas>()
+                .HasKey(bc => new { bc.Id_Item, bc.Id_Factura });
+            modelBuilder.Entity<Items_Facturas>()
+                .HasOne(bc => bc.Item)
+                .WithMany(b => b.Items_Facturas)
+                .HasForeignKey(bc => bc.Id_Item);
+            modelBuilder.Entity<Items_Facturas>()
+                .HasOne(bc => bc.Factura)
+                .WithMany(c => c.Items_Facturas)
+                .HasForeignKey(bc => bc.Id_Factura);
+        }
     }
 }

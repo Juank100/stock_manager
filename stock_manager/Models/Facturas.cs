@@ -1,5 +1,6 @@
 ﻿using stock_manager.Helpers;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -24,6 +25,8 @@ namespace stock_manager.Models
 
         [ForeignKey("Id_Contacto")]
         public Contactos Contacto { get; set; }
+
+        public ICollection<Items_Facturas> Items_Facturas { get; set; }
     }
 
     public class Items_Facturas
@@ -38,6 +41,7 @@ namespace stock_manager.Models
 
         [ForeignKey("Id_Item")]
         public Items Item { get; set; }
+
         [ForeignKey("Id_Factura")]
         public Facturas Factura { get; set; }
 
