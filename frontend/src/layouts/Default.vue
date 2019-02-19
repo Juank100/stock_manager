@@ -35,6 +35,10 @@
             <q-item-side icon="ion-contacts"/>
             <q-item-main label="Contactos"/>
           </q-item>
+          <q-item to="/Items">
+            <q-item-side icon="ion-cube"/>
+            <q-item-main label="Productos"/>
+          </q-item>
         </q-list>
       </q-list>
     </q-layout-drawer>
