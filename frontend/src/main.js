@@ -10,14 +10,18 @@ import "quasar-extras/ionicons";
 import Quasar from "quasar";
 
 Vue.use(Quasar, {
-  config: {},
-  iconSet: iconSet
+    config: {},
+    iconSet: iconSet
 });
+
+import Vue2Filters from 'vue2-filters'
+
+Vue.use(Vue2Filters)
 
 Vue.config.productionTip = false;
 
 new Vue({
-  router,
-  store,
-  render: h => h(App)
+    router,
+    store,
+    render: h => h(App)
 }).$mount("#app");

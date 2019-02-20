@@ -53,8 +53,9 @@ namespace stock_manager.Controllers
                 return BadRequest(ModelState);
             }
 
-            var facturas = await _context.Facturas.FindAsync(id);
-
+            //var facturas = await _context.Facturas.FindAsync(id);
+            var facturas = _context.Facturas.Where(f => f.Id == id);
+            facturas = facturas.Include(f => f.Items_Facturas);
             if (facturas == null)
             {
                 return NotFound();

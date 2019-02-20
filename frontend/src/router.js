@@ -118,6 +118,14 @@ export default new Router({
                     title: "Nueva Venta"
                 }
             },
+            {
+                path: "/Compras/:Id",
+                name: "Compras.Detail",
+                component: loadView("Compras/Detail"),
+                meta: {
+                    title: "Detalle Compra"
+                }
+            },
         ]
     }]
 });

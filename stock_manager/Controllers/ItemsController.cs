@@ -41,7 +41,7 @@ namespace stock_manager.Controllers
                     }
                     else
                     {
-                        salidas += 0;
+                        salidas += f.Cantidad;
                     }
                 }
                 i.Stock = entradas - salidas;

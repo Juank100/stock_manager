@@ -25,8 +25,8 @@
         </div>
         <div class="col-xs-6 col-md-4 center-v">
           <span>
-            <b>Precio:</b>
-            {{i.producto.precio_Venta}}
+            <b>Precio Venta:</b>
+            {{i.producto.precio_Venta | currency}}
           </span>
         </div>
         <div class="col-xs-6 col-md-4 center-v">
