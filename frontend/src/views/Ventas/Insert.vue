@@ -39,6 +39,8 @@
           <q-input
             v-model="i.cantidad"
             type="number"
+            :min="1"
+            :max="i.producto.stock"
             :disable="i.producto.stock <= 0"
             :suffix="i.producto.medida.nombre"
           />

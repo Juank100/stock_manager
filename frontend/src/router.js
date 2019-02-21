@@ -103,6 +103,14 @@ export default new Router({
                 }
             },
             {
+                path: "/Ventas/:Id",
+                name: "Ventas.Detail",
+                component: loadView("Ventas/Detail"),
+                meta: {
+                    title: "Detalle Venta"
+                }
+            },
+            {
                 path: "/Compras",
                 name: "Compras",
                 component: loadView("Compras/Index"),

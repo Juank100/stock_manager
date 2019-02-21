@@ -53,15 +53,21 @@ namespace stock_manager.Controllers
                 return BadRequest(ModelState);
             }
 
-            //var facturas = await _context.Facturas.FindAsync(id);
-            var facturas = _context.Facturas.Where(f => f.Id == id);
-            facturas = facturas.Include(f => f.Items_Facturas);
-            if (facturas == null)
+            //var factura = await _context.Facturas.FindAsync(id);
+            var factura = _context.Facturas.Include(f => f.Items_Facturas).Include(f => f.Contacto).Single(f => f.Id == id);
+            var items = new List<Items>();
+            foreach (var i in factura.Items_Facturas)
+            {
+                var item = _context.Items.Include(ii => ii.Medida).Single(ii => ii.Id == i.Id_Item);
+                i.Item = item;
+            }
+
+            if (factura == null)
             {
                 return NotFound();
             }
 
-            return Ok(facturas);
+            return Ok(factura);
         }
 
         // PUT: api/Facturas/5

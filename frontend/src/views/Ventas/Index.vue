@@ -1,8 +1,17 @@
 <template>
   <div>
-    <q-list separator link v-if="ventas.length">
-      <q-item v-for="c in ventas" :key="c.Id">
-        <q-item-main :label="c.Id"/>
+    <div class="full-width text-center q-pa-lg" v-if="loading">
+      <q-spinner-hourglass color="primary" :size="100"/>
+    </div>
+
+    <q-list separator link v-else-if="ventas.length">
+      <q-item v-for="c in ventas" :key="c.id" :to="{name:'Ventas.Detail', params:{Id: c.id}}">
+        <q-item-main>
+          <q-item-tile label>{{c.contacto.nombre}}</q-item-tile>
+          <q-item-tile sublabel class="row">
+            <div class="col-xs-6">items</div>
+          </q-item-tile>
+        </q-item-main>
       </q-item>
     </q-list>
     <div class="blank q-ma-md" v-else>
@@ -12,7 +21,7 @@
     <div class="q-my-md q-pa-md"></div>
     <q-layout-footer class="q-pa-sm" reveal>
       <q-btn
-        class="full-width"
+        class="adaptable-width"
         color="primary"
         icon="ion-add"
         label="Nuevo"
@@ -27,6 +36,7 @@ import axios from "axios";
 export default {
   data() {
     return {
+      loading: true,
       ventas: []
     };
   },
@@ -35,9 +45,11 @@ export default {
   },
   methods: {
     loadData() {
+      this.loading = true;
       let url = "/API/Facturas/Ventas";
       axios.get(url).then(resp => {
         this.ventas = resp.data;
+        this.loading = false;
       });
     }
   }
