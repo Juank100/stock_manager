@@ -38,6 +38,7 @@ namespace stock_manager.Models
         public TIPO_VALORACION Tipo_Valoracion { get; set; }
         public TIPO_PRECIO_VENTA Tipo_Precio_Venta { get; set; }
         public double Precio_Venta { get; set; }
+        public double Descuento { get; set; }
         public double IVA { get; set; }
         public int Id_Medida { get; set; }
         public ESTADOS Estado { get; set; }

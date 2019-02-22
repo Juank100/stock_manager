@@ -2,7 +2,7 @@
   <div>
     <q-list separator link v-if="contactos.length">
       <q-item v-for="c in contactos" :key="c.Id">
-        <q-item-main :label="c.nombre"/>
+        <q-item-main :label="c.Nombre"/>
       </q-item>
     </q-list>
     <div class="blank q-ma-md" v-else>

@@ -134,6 +134,14 @@ export default new Router({
                     title: "Detalle Compra"
                 }
             },
+            {
+                path: "/Resolucion/New",
+                name: "Resolucion.New",
+                component: loadView("Empresas/Resolucion/Insert"),
+                meta: {
+                    title: "Nuevo Contactos"
+                }
+            },
         ]
     }]
 });

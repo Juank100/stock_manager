@@ -89,6 +89,7 @@ namespace stock_manager.Controllers
             {
                 return BadRequest(ModelState);
             }
+            resolucion_Facturacion.Consecutivo = resolucion_Facturacion.Desde;
 
             _context.Resolucion_Facturacion.Add(resolucion_Facturacion);
             await _context.SaveChangesAsync();
@@ -120,6 +121,13 @@ namespace stock_manager.Controllers
         private bool Resolucion_FacturacionExists(int id)
         {
             return _context.Resolucion_Facturacion.Any(e => e.Id == id);
+        }
+
+        [HttpGet("SiguienteConsecutivo")]
+        public IActionResult SiguienteConsecutivo()
+        {
+            var res = _context.Resolucion_Facturacion.FirstOrDefault();
+            return Ok(res.Consecutivo++);
         }
     }
 }

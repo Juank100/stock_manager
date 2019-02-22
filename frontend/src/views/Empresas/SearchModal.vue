@@ -19,11 +19,11 @@
         <q-list separator highlight>
           <q-item
             v-for="n in filteredData"
-            :key="`c-${n.id}`"
+            :key="`c-${n.Id}`"
             @click.native="selectItem(n)"
             v-ripple.mat
           >
-            <q-item-main :label="n.nombre"/>
+            <q-item-main :label="n.Nombre"/>
           </q-item>
         </q-list>
       </div>

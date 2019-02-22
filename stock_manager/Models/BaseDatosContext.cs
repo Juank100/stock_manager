@@ -25,6 +25,8 @@ namespace stock_manager.Models
         public DbSet<Stock> Stock { get; set; }
         public DbSet<Parametros> Parametros { get; set; }
         public DbSet<Modena> Modena { get; set; }
+        public DbSet<Compras> Compras { get; set; }
+        public DbSet<Ventas> Ventas { get; set; }
 
         public DbSet<Auditoria> Auditoria { get; set; }
 

@@ -7,11 +7,11 @@
     <div class="row gutter-sm">
       <div class="col-md-12">
         <span>Cliente:</span>
-        {{data.contacto.nombre}}
+        {{data.contacto.Nombre}}
       </div>
       <div class="col-md-12">
         <b>Fecha:</b>
-        {{data.fecha | formatDate}}
+        {{data.Fecha | formatDate}}
       </div>
     </div>
     <table class="q-my-md">
@@ -21,11 +21,11 @@
         <th class="text-right">Cantidad</th>
       </thead>
       <tbody>
-        <tr v-for="itf in data.items_Facturas" :key="itf.id">
-          <td>{{itf.item.nombre}}</td>
-          <td class="text-right">{{itf.item.precio_Venta | currency}}</td>
-          <td class="text-right">{{itf.cantidad}} {{itf.item.medida.nombre}}</td>
-          <td class="text-right">{{itf.cantidad * itf.item.precio_Venta | currency}}</td>
+        <tr v-for="itf in data.Items_Facturas" :key="itf.Id">
+          <td>{{itf.Item.Nombre}}</td>
+          <td class="text-right">{{itf.Item.Precio_Venta | currency}}</td>
+          <td class="text-right">{{itf.cantidad}} {{itf.Item.Medida.Nombre}}</td>
+          <td class="text-right">{{itf.cantidad * itf.Item.Precio_Venta | currency}}</td>
         </tr>
         <tr>
           <td colspan="4"></td>

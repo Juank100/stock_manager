@@ -4,9 +4,9 @@
       <q-item
         v-for="empresa in empresas"
         :key="empresa.Id"
-        :to="{name:'Empresas.Detail', params:{Id: empresa.id}}"
+        :to="{name:'Empresas.Detail', params:{Id: empresa.Id}}"
       >
-        <q-item-main :label="empresa.nombre"/>
+        <q-item-main :label="empresa.Nombre"/>
       </q-item>
     </q-list>
     <div class="blank q-ma-md" v-else>

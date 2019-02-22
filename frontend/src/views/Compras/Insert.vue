@@ -6,7 +6,7 @@
       </div>
       <div class="col-xs-12 col-md-6">
         <q-input
-          v-model="contacto.nombre"
+          v-model="contacto.Nombre"
           type="text"
           float-label="Proveedor"
           @click="selectContact"
@@ -18,31 +18,31 @@
     <div class="q-my-lg"></div>
 
     <div class="q-my-lg" v-if="items.length">
-      <div class="row q-my-md" v-for="i in items" :key="i.producto.id">
+      <div class="row q-my-md" v-for="i in items" :key="i.producto.Id">
         <div class="col-xs-12 col-md-12">
           <q-btn icon="ion-close"/>
-          {{i.producto.nombre}}
+          {{i.producto.Nombre}}
         </div>
         <div class="col-xs-6 col-md-4 center-v">
           <span>
             <b>Precio venta:</b>
-            {{i.producto.precio_Venta | currency}}
+            {{i.producto.Precio_Venta | currency}}
           </span>
         </div>
         <div class="col-xs-6 col-md-4 center-v">
           <span>
-            <b>stock:</b>
-            {{i.producto.stock}} {{i.producto.medida.nombre}}
+            <b>Stock:</b>
+            {{i.producto.Stock}} {{i.producto.Medida.Nombre}}
           </span>
         </div>
         <div class="col-xs-12 col-md-4">
-          <q-input v-model="i.cantidad" type="number" :suffix="i.producto.medida.nombre"/>
+          <q-input v-model="i.Cantidad" type="number" :suffix="i.producto.Medida.Nombre"/>
         </div>
       </div>
     </div>
 
     <q-btn
-      class="q-my-md full-width"
+      class="q-my-md full-wIdth"
       label="Agregar Producto"
       color="primary"
       outline
@@ -77,7 +77,7 @@ export default {
   data() {
     return {
       items: [],
-      cantidad: 0,
+      Cantidad: 0,
       contacto: {},
       currProducto: {},
       showSelectContactModal: false,
@@ -88,7 +88,7 @@ export default {
   },
   methods: {
     saveData() {
-      this.model.Id_Contacto = this.contacto.id;
+      this.model.Id_Contacto = this.contacto.Id;
       let data = {
         Factura: this.model,
         Items: this.items
@@ -109,7 +109,7 @@ export default {
       this.$refs.ProductosModal.show();
     },
     addProducto(a) {
-      this.items.push({ producto: a, cantidad: 1 });
+      this.items.push({ producto: a, Cantidad: 1 });
     },
     enumToSelect(enums) {
       return Object.entries(enums).map(function(e) {
@@ -129,7 +129,7 @@ export default {
 
 <style scoped>
 table {
-  width: 100%;
+  wIdth: 100%;
   text-align: left;
 }
 

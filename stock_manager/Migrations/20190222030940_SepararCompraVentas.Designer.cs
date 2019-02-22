@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using stock_manager.Models;
 
 namespace stock_manager.Migrations
 {
     [DbContext(typeof(BaseDatosContext))]
-    partial class BaseDatosContextModelSnapshot : ModelSnapshot
+    [Migration("20190222030940_SepararCompraVentas")]
+    partial class SepararCompraVentas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -61,6 +63,8 @@ namespace stock_manager.Migrations
                     b.Property<int>("Id_Factura");
 
                     b.Property<int>("Id_Item");
+
+                    b.Property<string>("Observaciones");
 
                     b.Property<double>("Precio_Compra");
 
@@ -147,8 +151,6 @@ namespace stock_manager.Migrations
 
                     b.Property<string>("Num");
 
-                    b.Property<string>("Observaciones");
-
                     b.Property<int>("Tipo_Factura");
 
                     b.HasKey("Id");
@@ -167,8 +169,6 @@ namespace stock_manager.Migrations
                     b.Property<string>("Codigo");
 
                     b.Property<string>("Descripcion");
-
-                    b.Property<double>("Descuento");
 
                     b.Property<int>("Estado");
 
@@ -392,11 +392,11 @@ namespace stock_manager.Migrations
 
                     b.Property<double>("Descuento");
 
-                    b.Property<double>("IVA");
-
                     b.Property<int>("Id_Factura");
 
                     b.Property<int>("Id_Item");
+
+                    b.Property<string>("Observaciones");
 
                     b.Property<double>("Precio_Venta");
 

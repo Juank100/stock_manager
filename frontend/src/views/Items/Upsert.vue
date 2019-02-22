@@ -25,6 +25,12 @@
         <q-input type="number" v-model="model.Precio_Venta" align="right" float-label="Precio"/>
       </div>
 
+      <div class="col-md-4 col-xs-12">
+        <q-input v-model="model.Medida.Nombre" float-label="Medida">
+          <q-autocomplete :min-characters="2" :static-data="{field: 'nombre', list: ListaMedidas}"/>
+        </q-input>
+      </div>
+      
       <div class="col-xs-12 col-md-4">
         <q-input
           type="number"
@@ -37,11 +43,6 @@
         />
       </div>
 
-      <div class="col-md-4 col-xs-12">
-        <q-input v-model="model.Medida.Nombre" float-label="Medida">
-          <q-autocomplete :min-characters="2" :static-data="{field: 'nombre', list: ListaMedidas}"/>
-        </q-input>
-      </div>
       <div class="col-xs-12 col-md-12">
         <q-input type="textarea" v-model="model.Descripcion" float-label="Descripción"/>
       </div>

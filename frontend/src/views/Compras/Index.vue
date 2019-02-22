@@ -2,7 +2,7 @@
   <div>
     <!-- <q-list separator link v-if="compras.length">
       <q-item v-for="c in compras" :key="c.Id">
-        <q-item-main :label="c.contacto.nombre"/>
+        <q-item-main :label="c.contacto.Nombre"/>
       </q-item>
     </q-list>-->
     <table v-if="compras.length">
@@ -13,8 +13,8 @@
         <th>Total</th>
       </thead>
       <tr v-for="c in compras" :key="c.id">
-        <td>{{c.contacto.nombre}}</td>
-        <td>{{c.fecha}}</td>
+        <td>{{c.Contacto.Nombre}}</td>
+        <td>{{c.Fecha}}</td>
         <!-- <td>{{c.items_Factura.length}}</td> -->
       </tr>
     </table>

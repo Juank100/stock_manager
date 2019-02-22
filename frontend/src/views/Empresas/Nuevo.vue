@@ -37,19 +37,13 @@
       </div>
     </div>
     <q-btn class="q-my-md full-width" label="Guardar" color="primary" @click="saveData"/>
-    <pre>
-      {{testId}}
-    </pre>
-    <SearchModal title="Empresas" data-url="/API/Empresas" v-model="testId" visible/>
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import SearchModal from "./SearchModal";
 
 export default {
-  components: { SearchModal },
   data() {
     return {
       testId: null,
