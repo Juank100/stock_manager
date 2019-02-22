@@ -36,7 +36,16 @@
         <q-input type="tel" v-model="model.Telefono" float-label="Telefono"/>
       </div>
     </div>
-    <q-btn class="q-my-md full-width" label="Guardar" color="primary" @click="saveData"/>
+    <q-layout-footer class="q-pa-sm" reveal>
+      <q-btn
+        icon="ion-save"
+        class="adaptable-width"
+        label="Guardar"
+        color="secondary"
+        :loading="saving"
+        @click="saveData"
+      />
+    </q-layout-footer>
   </div>
 </template>
 
@@ -46,6 +55,7 @@ import axios from "axios";
 export default {
   data() {
     return {
+      saving: false,
       testId: null,
       model: {
         Tipo_Documento: "N"
@@ -64,11 +74,12 @@ export default {
   },
   methods: {
     saveData() {
+      this.saving = true;
       let url = "/API/Empresas";
       axios
         .post(url, this.model)
-        .then(resp => console.log(resp))
-        .catch(error => console.error(error.resp));
+        .then(resp => {console.log(resp); this.saving = false})
+        .catch(error => {console.error(error.resp); this.saving = false});
     }
   }
 };

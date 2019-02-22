@@ -1,17 +1,17 @@
 <template>
   <div>
     <q-toolbar color="primary" inverted>
-      <q-toolbar-title>Factura #</q-toolbar-title>
+      <q-toolbar-title>Factura {{data.factura.Num}}</q-toolbar-title>
       <q-btn flat round dense icon="ion-more"/>
     </q-toolbar>
     <div class="row gutter-sm">
       <div class="col-md-12">
         <span>Cliente:</span>
-        {{data.contacto.Nombre}}
+        {{data.factura.Contacto.Nombre}}
       </div>
       <div class="col-md-12">
         <b>Fecha:</b>
-        {{data.Fecha | formatDate}}
+        {{data.factura.Fecha | formatDate}}
       </div>
     </div>
     <table class="q-my-md">
@@ -21,7 +21,7 @@
         <th class="text-right">Cantidad</th>
       </thead>
       <tbody>
-        <tr v-for="itf in data.Items_Facturas" :key="itf.Id">
+        <tr v-for="itf in data.items" :key="itf.Id">
           <td>{{itf.Item.Nombre}}</td>
           <td class="text-right">{{itf.Item.Precio_Venta | currency}}</td>
           <td class="text-right">{{itf.cantidad}} {{itf.Item.Medida.Nombre}}</td>
@@ -45,8 +45,20 @@
       </tbody>
     </table>
     <div class="q-ma-md">
-      <q-btn outline class="adaptable-width" color="primary" icon="ion-download" label="Descargar Factura"/>
-      <q-btn outline class="adaptable-width" color="primary" icon="ion-mail" label="Enviar Por Correo"/>
+      <q-btn
+        outline
+        class="adaptable-width"
+        color="primary"
+        icon="ion-download"
+        label="Descargar Factura"
+      />
+      <q-btn
+        outline
+        class="adaptable-width"
+        color="primary"
+        icon="ion-mail"
+        label="Enviar Por Correo"
+      />
     </div>
   </div>
 </template>

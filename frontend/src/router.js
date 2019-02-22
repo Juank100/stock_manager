@@ -139,7 +139,7 @@ export default new Router({
                 name: "Resolucion.New",
                 component: loadView("Empresas/Resolucion/Insert"),
                 meta: {
-                    title: "Nuevo Contactos"
+                    title: "Nueva Resolución"
                 }
             },
         ]

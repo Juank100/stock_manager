@@ -25,18 +25,27 @@
         </div>
         <div class="col-xs-6 col-md-4 center-v">
           <span>
-            <b>Precio venta:</b>
-            {{i.producto.Precio_Venta | currency}}
-          </span>
-        </div>
-        <div class="col-xs-6 col-md-4 center-v">
-          <span>
             <b>Stock:</b>
             {{i.producto.Stock}} {{i.producto.Medida.Nombre}}
           </span>
         </div>
         <div class="col-xs-12 col-md-4">
-          <q-input v-model="i.Cantidad" type="number" :suffix="i.producto.Medida.Nombre"/>
+          <q-input
+            v-model="i.Precio"
+            type="number"
+            align="right"
+            float-label="Precio Compra"
+            prefix="$"
+          />
+        </div>
+        <div class="col-xs-12 col-md-4">
+          <q-input
+            v-model="i.Cantidad"
+            type="number"
+            align="right"
+            float-label="Cantidad"
+            :suffix="i.producto.Medida.Nombre"
+          />
         </div>
       </div>
     </div>
@@ -86,6 +95,9 @@ export default {
       }
     };
   },
+  created() {
+    this.getNextConsecutivo()
+  },
   methods: {
     saveData() {
       this.model.Id_Contacto = this.contacto.Id;
@@ -102,6 +114,10 @@ export default {
         })
         .catch(error => console.error(error.resp));
     },
+    getNextConsecutivo() {
+      let url = "/API/ResolucionFacturacion/SiguienteConsecutivo";
+      axios.get(url).then(resp => this.model.Num = resp.data)
+    },
     selectContact() {
       this.$refs.ClienteModal.show();
     },
@@ -112,7 +128,7 @@ export default {
       this.items.push({ producto: a, Cantidad: 1 });
     },
     enumToSelect(enums) {
-      return Object.entries(enums).map(function(e) {
+      return Object.entries(enums).map(function (e) {
         let Capitalize = e[0].replace("_", " ").toLowerCase();
         return { label: Capitalize, value: e[1] };
       });
@@ -129,7 +145,7 @@ export default {
 
 <style scoped>
 table {
-  wIdth: 100%;
+  width: 100%;
   text-align: left;
 }
 

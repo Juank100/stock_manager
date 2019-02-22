@@ -6,7 +6,7 @@
       </div>
       <div class="col-xs-12 col-md-6">
         <q-input
-          v-model="contacto.nombre"
+          v-model="contacto.Nombre"
           type="text"
           float-label="Cliente"
           @click="selectContact"
@@ -18,32 +18,45 @@
     <div class="q-my-lg"></div>
 
     <div class="q-my-lg" v-if="items.length">
-      <div class="row q-my-md" v-for="i in items" :key="i.producto.id">
+      <div class="row q-my-md" v-for="i in items" :key="i.producto.Id">
         <div class="col-xs-12 col-md-12">
           <q-btn icon="ion-close"/>
-          {{i.producto.nombre}}
+          {{i.producto.Nombre}}
         </div>
         <div class="col-xs-6 col-md-4 center-v">
           <span>
             <b>Precio Venta:</b>
-            {{i.producto.precio_Venta | currency}}
+            {{i.producto.Precio_Venta | currency}}
           </span>
         </div>
         <div class="col-xs-6 col-md-4 center-v">
           <span>
             <b>stock:</b>
-            {{i.producto.stock}} {{i.producto.medida.nombre}}
+            {{i.producto.Stock}} {{i.producto.Medida.Nombre}}
           </span>
         </div>
         <div class="col-xs-12 col-md-4">
           <q-input
-            v-model="i.cantidad"
+            v-model="i.Cantidad"
             type="number"
+            align="number"
             :min="1"
-            :max="i.producto.stock"
-            :disable="i.producto.stock <= 0"
-            :suffix="i.producto.medida.nombre"
+            :max="i.producto.Stock"
+            :disable="i.producto.Stock <= 0"
+            :suffix="i.producto.Medida.Nombre"
           />
+        </div>
+        <div class="col-xs-12 text-right">
+          <b>SubTotal:</b>
+          {{subtotal(i)| currency}}
+        </div>
+        <div class="col-xs-12 text-right">
+          <b>IVA:</b>
+          {{iva(i)| currency}}
+        </div>
+        <div class="col-xs-12 text-right">
+          <b>SubTotal:</b>
+          {{subtotal(i) + iva(i)| currency}}
         </div>
       </div>
     </div>
@@ -93,9 +106,12 @@ export default {
       }
     };
   },
+  mounted() {
+    this.getNextConsecutivo()
+  },
   methods: {
     saveData() {
-      this.model.Id_Contacto = this.contacto.id;
+      this.model.Id_Contacto = this.contacto.Id;
       let data = {
         Factura: this.model,
         Items: this.items
@@ -109,6 +125,10 @@ export default {
         })
         .catch(error => console.error(error.resp));
     },
+    getNextConsecutivo() {
+      let url = "/API/ResolucionFacturacion/SiguienteConsecutivo";
+      axios.get(url).then(resp => this.model.Num = resp.data)
+    },
     selectContact() {
       this.$refs.ClienteModal.show();
     },
@@ -119,10 +139,16 @@ export default {
       this.items.push({ producto: a, cantidad: 1 });
     },
     enumToSelect(enums) {
-      return Object.entries(enums).map(function(e) {
+      return Object.entries(enums).map(function (e) {
         let Capitalize = e[0].replace("_", " ").toLowerCase();
         return { label: Capitalize, value: e[1] };
       });
+    },
+    subtotal(i) {
+      return i.producto.Precio_Venta * i.Cantidad
+    },
+    iva(i) {
+      return this.subtotal(i) * i.producto.IVA / 100
     }
   },
   computed: {

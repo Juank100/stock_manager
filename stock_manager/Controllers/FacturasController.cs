@@ -55,11 +55,14 @@ namespace stock_manager.Controllers
 
             //var factura = await _context.Facturas.FindAsync(id);
             var factura = _context.Facturas.Include(f => f.Items_Facturas).Include(f => f.Contacto).Single(f => f.Id == id);
-            var items = new List<Items>();
-            foreach (var i in factura.Items_Facturas)
+            IQueryable items = null;
+            if (factura.Tipo_Factura == TIPO_FACTURA.COMPRA)
             {
-                var item = _context.Items.Include(ii => ii.Medida).Single(ii => ii.Id == i.Id_Item);
-                i.Item = item;
+                items = _context.Compras.Include(c => c.Item).Where(c => c.Id_Factura == factura.Id);
+            }
+            else if (factura.Tipo_Factura == TIPO_FACTURA.VENTA)
+            {
+                items = _context.Ventas.Include(c => c.Item).Where(c => c.Id_Factura == factura.Id);
             }
 
             if (factura == null)
@@ -67,7 +70,7 @@ namespace stock_manager.Controllers
                 return NotFound();
             }
 
-            return Ok(factura);
+            return Ok(new { factura , items});
         }
 
         // PUT: api/Facturas/5
@@ -127,7 +130,7 @@ namespace stock_manager.Controllers
                     });
                 }
             }
-            else if (factura.Tipo_Factura == TIPO_FACTURA.COMPRA)
+            else if (factura.Tipo_Factura == TIPO_FACTURA.VENTA)
             {
                 foreach (var item in data.Items)
                 {
@@ -158,9 +161,17 @@ namespace stock_manager.Controllers
                     {
                         if (cantidadRestanteXReportar <= 0) break;
                         var disponiblesEnRegistro = c.Cantidad - c.Cantidad_Vendida;
-                        string query = "UPDATE Compras set Cantidad_Vendida = {0} where Id = {2}";
-                        query = String.Format(query, cantidadRestanteXReportar, c.Id);
-                        _context.Database.ExecuteSqlCommand(query);
+                        _context.Entry(c).State = EntityState.Modified;
+                        string query = "UPDATE Compras set Cantidad_Vendida = {0} where Id = {1}";
+                        if (disponiblesEnRegistro > cantidadRestanteXReportar)
+                        {
+                            c.Cantidad_Vendida = c.Cantidad_Vendida + cantidadRestanteXReportar;
+
+                        }
+                        else
+                        {
+                            c.Cantidad_Vendida = c.Cantidad_Vendida + disponiblesEnRegistro;
+                        }
                         cantidadRestanteXReportar -= disponiblesEnRegistro;
                     }
                 }

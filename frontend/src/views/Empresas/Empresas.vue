@@ -1,6 +1,9 @@
 <template>
   <div>
-    <q-list separator link v-if="empresas.length">
+    <div class="full-width text-center q-pa-lg" v-if="loading">
+      <q-spinner-hourglass color="primary" :size="100"/>
+    </div>
+    <q-list separator link v-else-if="empresas.length">
       <q-item
         v-for="empresa in empresas"
         :key="empresa.Id"
@@ -16,7 +19,7 @@
     <div class="q-my-md q-pa-md"></div>
     <q-layout-footer class="q-pa-sm" reveal>
       <q-btn
-        class="full-width"
+        class="adaptable-width"
         color="primary"
         icon="ion-add"
         label="Nueva Empresa"
@@ -31,6 +34,7 @@ import axios from "axios";
 export default {
   data() {
     return {
+      loading: true,
       empresas: []
     };
   },
@@ -39,8 +43,10 @@ export default {
   },
   methods: {
     loadData() {
+      this.loading = true;
       let url = "/API/Empresas";
       axios.get(url).then(resp => {
+        this.loading = false;
         this.empresas = resp.data;
       });
     }

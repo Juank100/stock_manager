@@ -23,28 +23,12 @@ namespace stock_manager.Controllers
         public IEnumerable<Items> GetItems()
         {
             var items = _context.Items.Include("Medida");
-            items = items.Include(i => i.Items_Facturas);
-            foreach (var i in items)
+            foreach (var item in items)
             {
-                var facturas = i.Items_Facturas;
-                i.Stock = 0;
-                //var facturas = _context.Items_Facturas.Where(f => f.Id_Item == i.Id);
-                //facturas = facturas.Include(f => f.Factura);
-                double entradas = 0;
-                double salidas = 0;
-                foreach (var f in facturas)
-                {
-                    var fact = _context.Facturas.Single(ff => ff.Id == f.Id_Factura);
-                    if (fact.Tipo_Factura == TIPO_FACTURA.COMPRA)
-                    {
-                        entradas += f.Cantidad;
-                    }
-                    else
-                    {
-                        salidas += f.Cantidad;
-                    }
-                }
-                i.Stock = entradas - salidas;
+                item.Stock = 0;
+                double entradas = _context.Compras.Where(c => c.Id_Item == item.Id).Sum(c => c.Cantidad);
+                double salidas = _context.Ventas.Where(c => c.Id_Item == item.Id).Sum(c => c.Cantidad); ;
+                item.Stock = entradas - salidas;
             }
             return items;
         }

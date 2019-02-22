@@ -127,7 +127,8 @@ namespace stock_manager.Controllers
         public IActionResult SiguienteConsecutivo()
         {
             var res = _context.Resolucion_Facturacion.FirstOrDefault();
-            return Ok(res.Consecutivo++);
+            var consecutivo = res.Prefijo + res.Consecutivo++;
+            return Ok(consecutivo);
         }
     }
 }

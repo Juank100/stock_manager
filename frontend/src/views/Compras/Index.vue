@@ -1,24 +1,21 @@
 <template>
   <div>
-    <!-- <q-list separator link v-if="compras.length">
-      <q-item v-for="c in compras" :key="c.Id">
-        <q-item-main :label="c.contacto.Nombre"/>
-      </q-item>
-    </q-list>-->
-    <table v-if="compras.length">
-      <thead>
-        <th>Proveedor</th>
-        <th>Fecha</th>
-        <th>Items</th>
-        <th>Total</th>
-      </thead>
-      <tr v-for="c in compras" :key="c.id">
-        <td>{{c.Contacto.Nombre}}</td>
-        <td>{{c.Fecha}}</td>
-        <!-- <td>{{c.items_Factura.length}}</td> -->
-      </tr>
-    </table>
+    <div class="full-width text-center q-pa-lg" v-if="loading">
+      <q-spinner-hourglass color="primary" :size="100"/>
+    </div>
 
+    <q-list separator link v-else-if="compras.length">
+      <q-item v-for="c in compras" :key="c.id" :to="{name:'Ventas.Detail', params:{Id: c.id}}">
+        <q-item-main>
+          <q-item-tile label>{{c.Num}}</q-item-tile>
+          <q-item-tile sublabel class="row">
+            <div class="col-xs-6">{{c.Contacto.Nombre}}</div>
+            <div class="col-xs-6">{{c.Fecha | formatDate}}</div>
+            <div class="col-xs-6">items</div>
+          </q-item-tile>
+        </q-item-main>
+      </q-item>
+    </q-list>
     <div class="blank q-ma-md" v-else>
       <p>No existen datos para mostrar.</p>
     </div>
@@ -41,6 +38,7 @@ import axios from "axios";
 export default {
   data() {
     return {
+      loading: true,
       compras: []
     };
   },
@@ -49,9 +47,11 @@ export default {
   },
   methods: {
     loadData() {
+      this.loading = true;
       let url = "/API/Facturas/Compras";
       axios.get(url).then(resp => {
         this.compras = resp.data;
+        this.loading = false;
       });
     }
   }
