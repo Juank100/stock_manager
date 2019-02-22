@@ -1,8 +1,14 @@
 <template>
   <div>
-    <q-list separator link v-if="contactos.length">
-      <q-item v-for="c in contactos" :key="c.Id">
-        <q-item-main :label="c.nombre"/>
+    <q-list separator link v-if="items.length">
+      <q-item v-for="i in items" :key="i.id">
+        <q-item-main>
+          <q-item-tile label>{{i.nombre}}</q-item-tile>
+          <q-item-tile sublabel class="row">
+            <div class="col-xs-6">Stock: {{i.stock}}</div>
+            <div class="col-xs-6">Precio Venta: {{i.precio_Venta | currency}}</div>
+          </q-item-tile>
+        </q-item-main>
       </q-item>
     </q-list>
     <div class="blank q-ma-md" v-else>
@@ -24,10 +30,11 @@
 
 <script>
 import axios from "axios";
+
 export default {
   data() {
     return {
-      contactos: []
+      items: []
     };
   },
   created() {
@@ -37,7 +44,7 @@ export default {
     loadData() {
       let url = "/API/Items";
       axios.get(url).then(resp => {
-        this.contactos = resp.data;
+        this.items = resp.data;
       });
     }
   }

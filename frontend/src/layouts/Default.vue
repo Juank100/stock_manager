@@ -27,6 +27,10 @@
           <q-item-separator/>
 
           <q-list-header>Configuration</q-list-header>
+          <q-item to="/Compras">
+            <q-item-side icon="ion-paper"/>
+            <q-item-main label="Compras"/>
+          </q-item>
           <q-item to="/Empresas">
             <q-item-side icon="ion-business"/>
             <q-item-main label="Empresas"/>
@@ -40,7 +44,7 @@
             <q-item-main label="Productos"/>
           </q-item>
           <q-item to="/Ventas">
-            <q-item-side icon="ion-paper"/>
+            <q-item-side icon="ion-cart"/>
             <q-item-main label="Ventas"/>
           </q-item>
         </q-list>

@@ -1,7 +1,7 @@
 <template>
   <div class="q-pa-md">
     <div class="row gutter-xs">
-      <div class="col-xs-12 col-md-12">
+      <div class="col-xs-12 col-md-12 tex">
         <q-input type="text" v-model="model.Nombre" float-label="Nombre"/>
       </div>
       <div class="col-xs-12 col-md-4">
@@ -42,7 +42,7 @@
           <q-autocomplete :min-characters="2" :static-data="{field: 'nombre', list: ListaMedidas}"/>
         </q-input>
       </div>
-      <div class="col-xs-12 col-md-4">
+      <div class="col-xs-12 col-md-12">
         <q-input type="textarea" v-model="model.Descripcion" float-label="Descripción"/>
       </div>
     </div>

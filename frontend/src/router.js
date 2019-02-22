@@ -102,6 +102,38 @@ export default new Router({
                     title: "Nueva Venta"
                 }
             },
+            {
+                path: "/Ventas/:Id",
+                name: "Ventas.Detail",
+                component: loadView("Ventas/Detail"),
+                meta: {
+                    title: "Detalle Venta"
+                }
+            },
+            {
+                path: "/Compras",
+                name: "Compras",
+                component: loadView("Compras/Index"),
+                meta: {
+                    title: "Compras"
+                }
+            },
+            {
+                path: "/Compras/New",
+                name: "Compras.New",
+                component: loadView("Compras/Insert"),
+                meta: {
+                    title: "Nueva Venta"
+                }
+            },
+            {
+                path: "/Compras/:Id",
+                name: "Compras.Detail",
+                component: loadView("Compras/Detail"),
+                meta: {
+                    title: "Detalle Compra"
+                }
+            },
         ]
     }]
 });

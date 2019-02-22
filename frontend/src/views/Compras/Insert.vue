@@ -8,7 +8,7 @@
         <q-input
           v-model="contacto.nombre"
           type="text"
-          float-label="Cliente"
+          float-label="Proveedor"
           @click="selectContact"
           readonly
         />
@@ -25,8 +25,8 @@
         </div>
         <div class="col-xs-6 col-md-4 center-v">
           <span>
-            <b>Precio:</b>
-            {{i.producto.precio_Venta}}
+            <b>Precio venta:</b>
+            {{i.producto.precio_Venta | currency}}
           </span>
         </div>
         <div class="col-xs-6 col-md-4 center-v">
@@ -36,12 +36,7 @@
           </span>
         </div>
         <div class="col-xs-12 col-md-4">
-          <q-input
-            v-model="i.cantidad"
-            type="number"
-            :disable="i.producto.stock <= 0"
-            :suffix="i.producto.medida.nombre"
-          />
+          <q-input v-model="i.cantidad" type="number" :suffix="i.producto.medida.nombre"/>
         </div>
       </div>
     </div>
@@ -87,12 +82,13 @@ export default {
       currProducto: {},
       showSelectContactModal: false,
       model: {
-        Tipo_Factura: window.TIPO_FACTURA.VENTA
+        Tipo_Factura: window.TIPO_FACTURA.COMPRA
       }
     };
   },
   methods: {
     saveData() {
+      this.model.Id_Contacto = this.contacto.id;
       let data = {
         Factura: this.model,
         Items: this.items

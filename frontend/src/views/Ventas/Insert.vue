@@ -25,8 +25,8 @@
         </div>
         <div class="col-xs-6 col-md-4 center-v">
           <span>
-            <b>Precio:</b>
-            {{i.producto.precio_Venta}}
+            <b>Precio Venta:</b>
+            {{i.producto.precio_Venta | currency}}
           </span>
         </div>
         <div class="col-xs-6 col-md-4 center-v">
@@ -39,6 +39,8 @@
           <q-input
             v-model="i.cantidad"
             type="number"
+            :min="1"
+            :max="i.producto.stock"
             :disable="i.producto.stock <= 0"
             :suffix="i.producto.medida.nombre"
           />
@@ -93,6 +95,7 @@ export default {
   },
   methods: {
     saveData() {
+      this.model.Id_Contacto = this.contacto.id;
       let data = {
         Factura: this.model,
         Items: this.items
