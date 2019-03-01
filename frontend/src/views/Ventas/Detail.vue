@@ -1,17 +1,17 @@
 <template>
   <div>
     <q-toolbar color="primary" inverted>
-      <q-toolbar-title>Factura {{data.factura.Num}}</q-toolbar-title>
+      <q-toolbar-title>Factura {{detail.factura.Num}}</q-toolbar-title>
       <q-btn flat round dense icon="ion-more"/>
     </q-toolbar>
     <div class="row gutter-sm">
       <div class="col-md-12">
         <span>Cliente:</span>
-        {{data.factura.Contacto.Nombre}}
+        {{detail.factura.Contacto.Nombre}}
       </div>
       <div class="col-md-12">
         <b>Fecha:</b>
-        {{data.factura.Fecha | formatDate}}
+        {{detail.factura.Fecha | formatDate}}
       </div>
     </div>
     <table class="q-my-md">
@@ -21,11 +21,11 @@
         <th class="text-right">Cantidad</th>
       </thead>
       <tbody>
-        <tr v-for="itf in data.items" :key="itf.Id">
+        <tr v-for="itf in detail.items" :key="itf.Id">
           <td>{{itf.Item.Nombre}}</td>
           <td class="text-right">{{itf.Item.Precio_Venta | currency}}</td>
-          <td class="text-right">{{itf.cantidad}} {{itf.Item.Medida.Nombre}}</td>
-          <td class="text-right">{{itf.cantidad * itf.Item.Precio_Venta | currency}}</td>
+          <!-- <td class="text-right">{{itf.Cantidad}} {{itf.Item.Medida.Nombre}}</td> -->
+          <td class="text-right">{{itf.Cantidad * itf.Item.Precio_Venta | currency}}</td>
         </tr>
         <tr>
           <td colspan="4"></td>
@@ -69,16 +69,16 @@ import axios from "axios";
 export default {
   data() {
     return {
-      data: {}
+      detail: {}
     };
   },
   created() {
-    this.loadData();
+    this.loaddetail();
   },
   methods: {
-    loadData() {
+    loaddetail() {
       var url = `/API/Facturas/${this.$route.params.Id}`;
-      axios.get(url).then(resp => (this.data = resp.data));
+      axios.get(url).then(resp => (this.detail = resp.data));
     }
   }
 };
