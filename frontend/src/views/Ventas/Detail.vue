@@ -53,6 +53,7 @@
         color="primary"
         icon="ion-download"
         label="Descargar Factura"
+        @click="generarPDF"
       />
       <q-btn
         outline
@@ -81,6 +82,10 @@ export default {
     loaddetail() {
       let url = `/API/Facturas/${this.$route.params.Id}`;
       axios.get(url).then(resp => (this.detail = resp.data));
+    },
+
+    generarPDF() {
+      window.open(`/API/Facturas/Generar/${this.$route.params.Id}`);
     }
   }
 };

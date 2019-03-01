@@ -85,7 +85,7 @@
     </q-layout-footer>
 
     <SearchModal ref="ClienteModal" title="Contactos" data-url="/API/Contactos" v-model="contacto"/>
-    
+
     <SearchModal ref="posModal" title="pos" data-url="/API/Empresas/" v-model="empresa"/>
 
     <SearchModal

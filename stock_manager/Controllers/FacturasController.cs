@@ -236,7 +236,7 @@ namespace stock_manager.Controllers
             var factura = _context.Facturas.Include(f => f.Contacto).SingleOrDefault(f => f.Id == Id_Factura);
 
             template = template.Replace("@Factura.Num", factura.Num);
-            template = template.Replace("@Factura.Fecha", factura.Fecha.ToString("D"));
+            template = template.Replace("@Factura.Fecha", factura.Fecha.ToString("yyyy/MM/dd"));
             template = template.Replace("@Contacto", factura.Contacto.Nombre);
             //Ventas items = null;
             //if (factura.Tipo_Factura == TIPO_FACTURA.COMPRA)
@@ -262,7 +262,7 @@ namespace stock_manager.Controllers
                 sum += i.Item.Precio_Venta * i.Cantidad;
             }
 
-            tabla += ("<tr><td colspan='3'>{0}<td><tr>", sum);
+            tabla += ("<tr><td colspan='3' style='text-alig:right'><td><td>{0}</td></tr>", sum);
 
 
             template = template.Replace("@Items", tabla);
