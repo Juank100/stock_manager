@@ -55,6 +55,14 @@ export default new Router({
                 }
             },
             {
+                path: "/Empresas/:Id/POS/New",
+                name: "Empresas.POS.New",
+                component: loadView("Empresas/POS/New"),
+                meta: {
+                    title: "Nuevo POS"
+                }
+            },
+            {
                 path: "/Items",
                 name: "Items",
                 component: loadView("Items/Index"),

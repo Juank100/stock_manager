@@ -25,17 +25,20 @@
       </div>
     </q-list>
     <div class="q-ma-md">
-      <q-btn class="full-width q-ma-md" color="primary" icon="ion-add" label="Agregar POS" outline/>
+      <q-btn
+        class="full-width q-ma-md"
+        color="primary"
+        icon="ion-add"
+        label="Agregar POS"
+        :to="{name:'Empresas.POS.New', query:{Id_Empresa: data.Id}}"
+        outline
+      />
     </div>
 
     <q-list separator link>
       <q-list-header>Resolución Facturación</q-list-header>
-      <q-item
-        v-for="empresa in pos"
-        :key="empresa.Id"
-        :to="{name:'Empresas.Detail', params:{Id: empresa.Id}}"
-      >
-        <q-item-main :label="empresa.Nombre"/>
+      <q-item v-for="resol in resoluciones" :key="resol.Id">
+        <q-item-main>{{resol.Desde}}</q-item-main>
       </q-item>
       <div class="blank q-ma-md">
         <p>No existen datos para mostrar.</p>
@@ -62,6 +65,7 @@ export default {
     return {
       loading: true,
       pos: [],
+      resoluciones: [],
       data: {}
     };
   },
@@ -73,9 +77,19 @@ export default {
       this.loading = true;
       var url = `/API/Empresas/${this.$route.params.Id}`;
       axios.get(url).then(resp => {
-        (this.data = resp.data);
-        this.loading = false
-        });
+        this.data = resp.data;
+        this.loading = false;
+      });
+
+      let urlPOS = `/API/Empresas/${this.$route.params.Id}/POS`;
+      axios.get(urlPOS).then(resp => {
+        this.pos = resp.data;
+      });
+
+      let urlRESOL = `/API/ResolucionFacturacion/Empresa/${this.$route.params.Id}`;
+      axios.get(urlRESOL).then(resp => {
+        this.resoluciones = resp.data;
+      });
     }
   }
 };

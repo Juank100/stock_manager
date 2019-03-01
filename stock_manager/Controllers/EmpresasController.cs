@@ -46,6 +46,13 @@ namespace stock_manager.Controllers
             return Ok(empresas);
         }
 
+        [HttpGet("{id}/POS")]
+        public async Task<IActionResult> GetPOSEmpresas([FromRoute] int id)
+        {
+            var empresas = _context.Empresas.Where(e => e.Id_Padre == id);
+            return Ok(empresas);
+        }
+
         // PUT: api/Empresas/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutEmpresas([FromRoute] int id, [FromBody] Empresas empresas)

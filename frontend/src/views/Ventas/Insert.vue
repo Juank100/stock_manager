@@ -13,8 +13,16 @@
           readonly
         />
       </div>
+      <div class="col-xs-12 col-md-6">
+        <q-input
+          v-model="empresa.Nombre"
+          type="text"
+          float-label="Cliente"
+          @click="openempresa"
+          readonly
+        />
+      </div>
     </div>
-
     <div class="q-my-lg"></div>
 
     <div class="q-my-lg" v-if="items.length">
@@ -77,6 +85,8 @@
     </q-layout-footer>
 
     <SearchModal ref="ClienteModal" title="Contactos" data-url="/API/Contactos" v-model="contacto"/>
+    
+    <SearchModal ref="posModal" title="pos" data-url="/API/Empresas/" v-model="empresa"/>
 
     <SearchModal
       ref="ProductosModal"
@@ -100,6 +110,7 @@ export default {
       cantidad: 0,
       contacto: {},
       currProducto: {},
+      empresa: {},
       showSelectContactModal: false,
       model: {
         Tipo_Factura: window.TIPO_FACTURA.VENTA
@@ -107,11 +118,12 @@ export default {
     };
   },
   mounted() {
-    this.getNextConsecutivo()
+    this.getNextConsecutivo();
   },
   methods: {
     saveData() {
       this.model.Id_Contacto = this.contacto.Id;
+      this.model.Id_Empresa = this.empresa.Id;
       let data = {
         Factura: this.model,
         Items: this.items
@@ -127,10 +139,13 @@ export default {
     },
     getNextConsecutivo() {
       let url = "/API/ResolucionFacturacion/SiguienteConsecutivo";
-      axios.get(url).then(resp => this.model.Num = resp.data)
+      axios.get(url).then(resp => (this.model.Num = resp.data));
     },
     selectContact() {
       this.$refs.ClienteModal.show();
+    },
+    openempresa() {
+      this.$refs.posModal.show();
     },
     agregarProducto() {
       this.$refs.ProductosModal.show();
@@ -139,16 +154,16 @@ export default {
       this.items.push({ producto: a, cantidad: 1 });
     },
     enumToSelect(enums) {
-      return Object.entries(enums).map(function (e) {
+      return Object.entries(enums).map(function(e) {
         let Capitalize = e[0].replace("_", " ").toLowerCase();
         return { label: Capitalize, value: e[1] };
       });
     },
     subtotal(i) {
-      return i.producto.Precio_Venta * i.Cantidad
+      return i.producto.Precio_Venta * i.Cantidad;
     },
     iva(i) {
-      return this.subtotal(i) * i.producto.IVA / 100
+      return (this.subtotal(i) * i.producto.IVA) / 100;
     }
   },
   computed: {

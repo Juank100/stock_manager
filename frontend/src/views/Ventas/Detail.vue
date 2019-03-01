@@ -17,13 +17,15 @@
     <table class="q-my-md">
       <thead>
         <th>Descripción</th>
-        <th class="text-right">Precio Unit</th>
+        <th class="text-right">Precio</th>
         <th class="text-right">Cantidad</th>
+        <th class="text-right">Total</th>
       </thead>
       <tbody>
         <tr v-for="itf in detail.items" :key="itf.Id">
           <td>{{itf.Item.Nombre}}</td>
           <td class="text-right">{{itf.Item.Precio_Venta | currency}}</td>
+          <td class="text-right">{{itf.Cantidad}}</td>
           <!-- <td class="text-right">{{itf.Cantidad}} {{itf.Item.Medida.Nombre}}</td> -->
           <td class="text-right">{{itf.Cantidad * itf.Item.Precio_Venta | currency}}</td>
         </tr>
@@ -77,7 +79,7 @@ export default {
   },
   methods: {
     loaddetail() {
-      var url = `/API/Facturas/${this.$route.params.Id}`;
+      let url = `/API/Facturas/${this.$route.params.Id}`;
       axios.get(url).then(resp => (this.detail = resp.data));
     }
   }

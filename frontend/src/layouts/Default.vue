@@ -16,9 +16,9 @@
     </q-layout-header>
 
     <q-layout-drawer v-model="leftDrawerOpen">
+      <img src="/images/logo_empresa.png" class="logo">
       <q-list no-border link inset-delimiter>
         <q-list no-border link inset-delimiter>
-          <q-list-header>POS</q-list-header>
           <q-item to="/" exact>
             <q-item-side icon="ion-home"/>
             <q-item-main label="Inicio"/>
@@ -26,7 +26,6 @@
 
           <q-item-separator/>
 
-          <q-list-header>Configuration</q-list-header>
           <q-item to="/Compras">
             <q-item-side icon="ion-paper"/>
             <q-item-main label="Compras"/>
@@ -88,4 +87,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.logo {
+  max-width: 100%;
+}
+</style>

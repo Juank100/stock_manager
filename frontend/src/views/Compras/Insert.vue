@@ -2,7 +2,7 @@
   <div class="q-pa-md">
     <div class="row gutter-xs">
       <div class="col-xs-12 col-md-4">
-        <q-input v-model="model.Num" float-label="Num" disable/>
+        <q-input v-model="model.Num" float-label="Num"/>
       </div>
       <div class="col-xs-12 col-md-6">
         <q-input
@@ -96,7 +96,7 @@ export default {
     };
   },
   created() {
-    this.getNextConsecutivo()
+    // this.getNextConsecutivo()
   },
   methods: {
     saveData() {
@@ -114,10 +114,6 @@ export default {
         })
         .catch(error => console.error(error.resp));
     },
-    getNextConsecutivo() {
-      let url = "/API/ResolucionFacturacion/SiguienteConsecutivo";
-      axios.get(url).then(resp => this.model.Num = resp.data)
-    },
     selectContact() {
       this.$refs.ClienteModal.show();
     },
@@ -128,7 +124,7 @@ export default {
       this.items.push({ producto: a, Cantidad: 1 });
     },
     enumToSelect(enums) {
-      return Object.entries(enums).map(function (e) {
+      return Object.entries(enums).map(function(e) {
         let Capitalize = e[0].replace("_", " ").toLowerCase();
         return { label: Capitalize, value: e[1] };
       });

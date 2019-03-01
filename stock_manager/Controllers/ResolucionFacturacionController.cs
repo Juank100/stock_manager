@@ -46,6 +46,13 @@ namespace stock_manager.Controllers
             return Ok(resolucion_Facturacion);
         }
 
+        [HttpGet("Empresa/{Id_Empresa}")]
+        public async Task<IActionResult> GetResolucion_FacturacionEmpresa([FromRoute] int Id_Empresa)
+        {
+            var resoluciones = _context.Resolucion_Facturacion.Where(rf => rf.Id_Empresa == Id_Empresa);
+            return Ok(resoluciones);
+        }
+
         // PUT: api/ResolucionFacturacion/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutResolucion_Facturacion([FromRoute] int id, [FromBody] Resolucion_Facturacion resolucion_Facturacion)
