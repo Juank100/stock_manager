@@ -17,7 +17,7 @@
         <q-input
           v-model="empresa.Nombre"
           type="text"
-          float-label="Cliente"
+          float-label="POS"
           @click="openempresa"
           readonly
         />

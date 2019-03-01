@@ -5,7 +5,7 @@
     </div>
 
     <q-list separator link v-else-if="compras.length">
-      <q-item v-for="c in compras" :key="c.Id" :to="{name:'Ventas.Detail', params:{Id: c.Id}}">
+      <q-item v-for="c in compras" :key="c.Id" :to="{name:'Compras.Detail', params:{Id: c.Id}}">
         <q-item-main>
           <q-item-tile label>{{c.Num}}</q-item-tile>
           <q-item-tile sublabel class="row">

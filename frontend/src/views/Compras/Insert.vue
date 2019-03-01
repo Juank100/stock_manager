@@ -13,6 +13,15 @@
           readonly
         />
       </div>
+      <div class="col-xs-12 col-md-6">
+        <q-input
+          v-model="empresa.Nombre"
+          type="text"
+          float-label="POS"
+          @click="openempresa"
+          readonly
+        />
+      </div>
     </div>
 
     <div class="q-my-lg"></div>
@@ -67,6 +76,7 @@
 
     <SearchModal ref="ClienteModal" title="Contactos" data-url="/API/Contactos" v-model="contacto"/>
 
+    <SearchModal ref="posModal" title="pos" data-url="/API/Empresas/" v-model="empresa"/>
     <SearchModal
       ref="ProductosModal"
       title="Productos"
@@ -85,6 +95,7 @@ export default {
   components: { SearchModal },
   data() {
     return {
+      empresa: {},
       items: [],
       Cantidad: 0,
       contacto: {},
@@ -116,6 +127,9 @@ export default {
     },
     selectContact() {
       this.$refs.ClienteModal.show();
+    },
+    openempresa() {
+      this.$refs.posModal.show();
     },
     agregarProducto() {
       this.$refs.ProductosModal.show();

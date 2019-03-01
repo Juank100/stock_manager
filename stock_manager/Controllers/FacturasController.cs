@@ -1,13 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DinkToPdf;
+using DinkToPdf.Contracts;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using stock_manager.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using DinkToPdf;
-using DinkToPdf.Contracts;
-using System.IO;
 
 namespace stock_manager.Controllers
 {
@@ -75,7 +75,7 @@ namespace stock_manager.Controllers
                 return NotFound();
             }
 
-            return Ok(new { factura , items});
+            return Ok(new { factura, items });
         }
 
         // PUT: api/Facturas/5
@@ -164,7 +164,11 @@ namespace stock_manager.Controllers
                     var cantidadRestanteXReportar = item.cantidad;
                     foreach (var c in compras)
                     {
-                        if (cantidadRestanteXReportar <= 0) break;
+                        if (cantidadRestanteXReportar <= 0)
+                        {
+                            break;
+                        }
+
                         var disponiblesEnRegistro = c.Cantidad - c.Cantidad_Vendida;
                         _context.Entry(c).State = EntityState.Modified;
                         string query = "UPDATE Compras set Cantidad_Vendida = {0} where Id = {1}";
@@ -225,8 +229,44 @@ namespace stock_manager.Controllers
 
 
         [HttpGet("Generar/{Id_Factura}")]
-        public IActionResult  createFactura(int Id_Factura)
+        public IActionResult createFactura(int Id_Factura)
         {
+
+            var template = System.IO.File.ReadAllText(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "templates", "factura_0001.html"));
+            var factura = _context.Facturas.Include(f => f.Contacto).SingleOrDefault(f => f.Id == Id_Factura);
+
+            template = template.Replace("@Factura.Num", factura.Num);
+            template = template.Replace("@Factura.Fecha", factura.Fecha.ToString("D"));
+            template = template.Replace("@Contacto", factura.Contacto.Nombre);
+            //Ventas items = null;
+            //if (factura.Tipo_Factura == TIPO_FACTURA.COMPRA)
+            //{
+            //    items = _context.Compras.Include(c => c.Item).Where(c => c.Id_Factura == factura.Id);
+            //}
+            //else if (factura.Tipo_Factura == TIPO_FACTURA.VENTA)
+            //{
+            //}
+
+           var items = _context.Ventas.Include(c => c.Item).Where(c => c.Id_Factura == factura.Id);
+            var tabla = "";
+            double sum = 0;
+            foreach(var i in items)
+            {
+                tabla += "<tr>";
+                tabla += String.Format("<td>{0}</td>", i.Item.Codigo);
+                tabla += String.Format("<td>{0}</td>", i.Item.Codigo);
+                tabla += String.Format("<td>{0}</td>", i.Cantidad);
+                tabla += String.Format("<td>{0}</td>", i.Item.Precio_Venta);
+                tabla += String.Format("<td>{0}</td>", i.Item.Precio_Venta * i.Cantidad);
+                tabla += "</tr>";
+                sum += i.Item.Precio_Venta * i.Cantidad;
+            }
+
+            tabla += ("<tr><td colspan='3'>{0}<td><tr>", sum);
+
+
+            template = template.Replace("@Items", tabla);
+
             var globalSettings = new GlobalSettings
             {
                 ColorMode = ColorMode.Color,
@@ -234,13 +274,12 @@ namespace stock_manager.Controllers
                 PaperSize = PaperKind.A4,
                 Margins = new MarginSettings { Top = 10 },
                 DocumentTitle = "PDF Report",
-                Out = @"D:\PDFCreator\Employee_Report.pdf"
             };
 
             var objectSettings = new ObjectSettings
             {
                 PagesCount = true,
-                HtmlContent = System.IO.File.ReadAllText(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "templates", "factura_0001.html")),
+                HtmlContent = template,
                 //WebSettings = { DefaultEncoding = "utf-8", UserStyleSheet = Path.Combine(Directory.GetCurrentDirectory(), "assets", "styles.css") },
                 HeaderSettings = { FontName = "Arial", FontSize = 9, Right = "Page [page] of [toPage]", Line = true },
                 FooterSettings = { FontName = "Arial", FontSize = 9, Line = true, Center = "Report Footer" }
@@ -252,7 +291,7 @@ namespace stock_manager.Controllers
                 Objects = { objectSettings }
             };
 
-           var file =  _converter.Convert(pdf);
+            var file = _converter.Convert(pdf);
             return File(file, "application/pdf");
         }
     }
